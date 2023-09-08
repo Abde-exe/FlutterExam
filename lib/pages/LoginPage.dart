@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite_common/sqlite_api.dart';
+import 'package:testapp/utils/spaces.dart';
 import 'package:testapp/widgets/MyForm.dart';
 
 class LoginPage extends StatelessWidget {
@@ -38,9 +39,16 @@ class LoginPage extends StatelessWidget {
         body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            verticalSpacing(30),
             Center(child: Text('Lets log you in!', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),)),
+            verticalSpacing(30),
             Image.asset("image.jpg", height: 200,),
-            myForm(context, _formkey, userNameController, passwordController, loginUser)
+            verticalSpacing(30),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: myForm(context, _formkey, userNameController, passwordController, loginUser),
+            )
           ],
         ),
 

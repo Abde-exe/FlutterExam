@@ -33,77 +33,80 @@ class _UserInfoState extends State<UserInfo> {
       appBar: AppBar(
         title: Text('UserInfo'),),
         body: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('Bonjour $username',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Username : $username',
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Bonjour $username',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),),
                 ),
-                enabled: false,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                    hintText: 'User ID',
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Username : $username',
+                  ),
+                  enabled: false,
                 ),
-                enabled: false,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                    hintText: 'Password : $password',
+                TextField(
+                  decoration: InputDecoration(
+                      hintText: 'User ID',
+                  ),
+                  enabled: false,
                 ),
-                enabled: false,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:
-              Row(
-                children: [
-                  ElevatedButton(onPressed: () async {
-                    final connection = await connectToDatabase();
-                    final userRepository = UserRepository(connection);
+                TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Password : $password',
+                  ),
+                  enabled: false,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child:
+                Row(
+                  children: [
+                    ElevatedButton(onPressed: () async {
+                      final connection = await connectToDatabase();
+                      final userRepository = UserRepository(connection);
 
-                    final newUser = User( userName: username, userPassword: password);
-                    final userId = await userRepository.insertUser(newUser);
+                      final newUser = User( userName: username, userPassword: password);
+                      final userId = await userRepository.insertUser(newUser);
 
-                    print('Inserted user with ID: $userId');
+                      print('Inserted user with ID: $userId');
 /*
-                    final userFromDb = await userRepository.getUserById(userId!);
-                    if (userFromDb != null) {
-                      print('User added to database: ${userFromDb.userName}, ID: ${userFromDb.id}');
-                    } else {
-                      print('User not found in the database.');
-                    }*/
+                      final userFromDb = await userRepository.getUserById(userId!);
+                      if (userFromDb != null) {
+                        print('User added to database: ${userFromDb.userName}, ID: ${userFromDb.id}');
+                      } else {
+                        print('User not found in the database.');
+                      }*/
 
-                    // N'oubliez pas de gérer la fermeture de la connexion lorsque vous avez terminé.
-                    await connection.close();
+                      // N'oubliez pas de gérer la fermeture de la connexion lorsque vous avez terminé.
+                      await connection.close();
 
 
-                  }, child: Text('Enregister')),
-                  ElevatedButton(onPressed: (){
-                    showDialog(
-                      context: context,
-                      builder: (context) => EditUserModal(
-                        currentUsername: '$username',
-                        currentPassword: '$password',
-                      ),
-                    );
-                  }, child: Text('Modifier')),
-                ],
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-              ),
-              ),
-              ElevatedButton(onPressed: (){
-                Navigator.pop(context);
-              }, child: Text('Logout'))
-            ],
+                    }, child: Text('Enregister')),
+                    ElevatedButton(onPressed: (){
+                      showDialog(
+                        context: context,
+                        builder: (context) => EditUserModal(
+                          currentUsername: '$username',
+                          currentPassword: '$password',
+                        ),
+                      );
+                    }, child: Text('Modifier')),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                ),
+                ),
+                ElevatedButton(onPressed: (){
+                  Navigator.pop(context);
+                }, child: Text('Logout'))
+              ],
+            ),
           ),
         ),
     );
