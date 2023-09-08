@@ -10,10 +10,18 @@ class LoginPage extends StatelessWidget {
     if (_formkey.currentState!.validate()) {
       print(userNameController.text);
       print(passwordController.text);
-      Navigator.pushReplacementNamed(context, '/chat', arguments:'${userNameController.text}');
-      print('Validated');
+      Navigator.pushNamed(
+        context,
+        '/userInfo',
+        arguments: {
+          'username': userNameController.text,
+          'password': passwordController.text,
+        },
+      );
+
+      print('Success');
     } else {
-      print('Not Validated');
+      print('Error');
     }
   }
    final userNameController = TextEditingController();
@@ -23,20 +31,18 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-        appBar: AppBar(),
-        drawer: Drawer(),
+        appBar: AppBar(
+          title: Text("Login Page")
+        ),
         body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(child: Text('Lets log you in!')),
-            Image.network("https://pbs.twimg.com/profile_images/1697614573187072000/mjFRYv9z_400x400.jpg", height: 200,),
+            Center(child: Text('Lets log you in!', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),)),
+            Image.asset("image.jpg", height: 200,),
             myForm(context, _formkey, userNameController, passwordController, loginUser)
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {print('Clicked');},
-          child: Icon(Icons.add),
-        )
+
     );
   }
 }

@@ -13,7 +13,7 @@ Widget myForm(context, _formkey, userNameController, passwordController, loginUs
         child: Column(
           children: [
             LoginTextField(
-              hintText: "Enter your username",
+              hintText: "Username",
               validator: (value) {
                 if (value != null && value.isNotEmpty && value.length < 5) {
                   return "Your username should be more than 5 characters";
@@ -26,9 +26,17 @@ Widget myForm(context, _formkey, userNameController, passwordController, loginUs
             ),
             verticalSpacing(24),
             LoginTextField(
+              validator: (value) {
+                if (value != null && value.isNotEmpty && value.length < 5) {
+                  return "Your password should be more than 5 characters";
+                } else if (value != null && value.isEmpty) {
+                  return "Please type your password";
+                }
+                return null;
+              },
               hasAsterisks: true,
               controller: passwordController,
-              hintText: 'Enter your password',
+              hintText: 'Password',
             ),
           ],
         ),

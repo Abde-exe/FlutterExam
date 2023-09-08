@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:testapp/LoginPage.dart';
+import 'package:testapp/pages/LoginPage.dart';
+import 'package:testapp/pages/user_information.dart';
 
-import 'ChatPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.amber),
       home: LoginPage(),
-      routes: {'/chat': (context) => ChatPage()},
+      routes: {'/userInfo': (context) => UserInfo()},
     );
   }
 }
