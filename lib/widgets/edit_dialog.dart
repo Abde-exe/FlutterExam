@@ -48,16 +48,6 @@ class _EditUserModalState extends State<EditUserModal> {
       ),
       actions: <Widget>[
         ElevatedButton(
-          onPressed: () {
-            String newUsername = usernameController.text;
-            String newPassword = passwordController.text;
-
-
-            Navigator.of(context).pop();
-          },
-          child: Text('Save'),
-        ),
-        TextButton(
           onPressed: () async {
             //update user
             final connection = await connectToDatabase();
@@ -67,6 +57,13 @@ class _EditUserModalState extends State<EditUserModal> {
               userPassword: passwordController.text,
             );
             //await userRepository.updateUser(user);
+            Navigator.of(context).pop();
+          },
+          child: Text('Save'),
+        ),
+        TextButton(
+          onPressed: ()  {
+
             Navigator.of(context).pop();
           },
           child: Text('Cancel'),
