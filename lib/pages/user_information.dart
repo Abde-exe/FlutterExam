@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite_common/sqlite_api.dart';
 
+import '../data_base/data_base.dart';
+import '../model/User.dart';
+import '../repository/user_repo.dart';
 import '../widgets/edit_dialog.dart';
 
 class UserInfo extends StatefulWidget {
@@ -10,16 +14,20 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
 
-    //final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-   // final String username = args['username'];
-    //final String password = args['password'];
-
-    final username = "a modifier";
-    final password = "a modifier";
+    final String username = args['username'];
+    final String password = args['password'];
+    //final username = "a modifier";
+    //final password = "a modifier";
 
     return  Scaffold(
       appBar: AppBar(
@@ -58,7 +66,27 @@ class _UserInfoState extends State<UserInfo> {
                 child:
               Row(
                 children: [
-                  ElevatedButton(onPressed: (){}, child: Text('Enregister')),
+                  ElevatedButton(onPressed: () async {
+                    final connection = await connectToDatabase();
+                    final userRepository = UserRepository(connection);
+
+                    final newUser = User( userName: username, userPassword: password);
+                    final userId = await userRepository.insertUser(newUser);
+
+                    print('Inserted user with ID: $userId');
+/*
+                    final userFromDb = await userRepository.getUserById(userId!);
+                    if (userFromDb != null) {
+                      print('User added to database: ${userFromDb.userName}, ID: ${userFromDb.id}');
+                    } else {
+                      print('User not found in the database.');
+                    }*/
+
+                    // N'oubliez pas de gérer la fermeture de la connexion lorsque vous avez terminé.
+                    await connection.close();
+
+
+                  }, child: Text('Enregister')),
                   ElevatedButton(onPressed: (){
                     showDialog(
                       context: context,

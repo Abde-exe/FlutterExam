@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:testapp/pages/LoginPage.dart';
 import 'package:testapp/pages/user_information.dart';
 
+import 'data_base/data_base.dart';
 
-void main() {
-  runApp(const MyApp());
+
+Future<void> main() async {
+
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,5 +25,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
 
