@@ -29,4 +29,32 @@ class UserRepository {
     return User.fromMap(result.first.fields);
   }
 
+  //get all users
+  Future<List<User>> getAllUsers() async {
+    final result = await _connection.query(
+      'SELECT * FROM users',
+    );
+
+    return result.map((e) => User.fromMap(e.fields)).toList();
+  }
+
+  //update user
+  Future<int?> updateUser(User user) async {
+    final result = await _connection.query(
+      'UPDATE users SET name = ?, password = ? WHERE id = ?',
+      [user.userName, user.userPassword, user.id],
+    );
+
+    return result.affectedRows;
+  }
+  //delete user
+  Future<int?> deleteUser(int userId) async {
+    final result = await _connection.query(
+      'DELETE FROM users WHERE id = ?',
+      [userId],
+    );
+
+    return result.affectedRows;
+  }
+
 }

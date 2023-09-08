@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../data_base/data_base.dart';
+import '../model/User.dart';
+import '../repository/user_repo.dart';
+
 class EditUserModal extends StatefulWidget {
   final String currentUsername;
   final String currentPassword;
@@ -54,7 +58,15 @@ class _EditUserModalState extends State<EditUserModal> {
           child: Text('Save'),
         ),
         TextButton(
-          onPressed: () {
+          onPressed: () async {
+            //update user
+            final connection = await connectToDatabase();
+            final userRepository = UserRepository(connection);
+            final user = User(
+              userName: usernameController.text,
+              userPassword: passwordController.text,
+            );
+            //await userRepository.updateUser(user);
             Navigator.of(context).pop();
           },
           child: Text('Cancel'),

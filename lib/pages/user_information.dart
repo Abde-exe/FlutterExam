@@ -76,7 +76,7 @@ class _UserInfoState extends State<UserInfo> {
                       final userId = await userRepository.insertUser(newUser);
 
                       print('Inserted user with ID: $userId');
-/*
+                      /*
                       final userFromDb = await userRepository.getUserById(userId!);
                       if (userFromDb != null) {
                         print('User added to database: ${userFromDb.userName}, ID: ${userFromDb.id}');
@@ -84,7 +84,6 @@ class _UserInfoState extends State<UserInfo> {
                         print('User not found in the database.');
                       }*/
 
-                      // N'oubliez pas de gérer la fermeture de la connexion lorsque vous avez terminé.
                       await connection.close();
 
 
